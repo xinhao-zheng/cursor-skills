@@ -36,13 +36,15 @@ this stage's only job.
 
 ---
 
-## Style fingerprint | 风格指纹（八项，与 logic.md 八步一一对应）
+## Style fingerprint | 风格指纹（九项，与 logic.md 九步一一对应）
 
-1. **Closed intake set** — one source file maps to one slug; duplicate slugs in
-   `bilingual-transcripts/` or `report-summaries/` are defects found before
-   extraction opens.
-   **闭合入库集**——一个源文件对应一个 slug；`bilingual-transcripts/` 或
-   `report-summaries/` 中的重复 slug 是开提之前就能发现的缺陷。
+1. **Closed intake set** — one source file maps to one slug carrying the full
+   title (strip only the real extension, never split on an interior dot); a slug
+   collapsed to `YYYYMMDD_<n>` or duplicated across `bilingual-transcripts/` /
+   `report-summaries/` is a defect found before extraction opens.
+   **闭合入库集**——一个源文件对应一个承载完整标题的 slug（只去真实扩展名、
+   绝不在内部点号处截断）；被压成 `YYYYMMDD_<n>` 或在 `bilingual-transcripts/`/
+   `report-summaries/` 中重复的 slug，是开提之前就能发现的缺陷。
 2. **Verbatim before translation** — extract page text first; translation fills
    empty language blocks, never replaces the extract pass.
    **先逐字提取再翻译**——先提取分页文本；翻译填充空语言块，不替代提取步骤。
@@ -69,6 +71,11 @@ this stage's only job.
 8. **Named falsifiers** — each summary closes with one observable that would
    break its one-line conclusion.
    **具名证伪条件**——每份摘要以一条可观察项收束，说明何种情形将推翻一句话结论。
+9. **Agent token for interpretive output** — retranslation and `-Summary.md`
+   are agent-authored from `*-Bilingual.md`; free Google MT or a third-party OCR
+   plugin is not a shippable final state (see [logic.md](logic.md) step 9).
+   **解读产出用 agent token**——重译与摘要由 agent 对照双语稿撰写；免费 Google
+   机翻或第三方 OCR 插件不是可交付终态（见 [logic.md](logic.md) 第 9 步）。
 
 ---
 

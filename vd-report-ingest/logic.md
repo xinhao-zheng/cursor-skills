@@ -11,10 +11,15 @@ domain-neutral where possible; the path names are fixed for vd-research.
 1. **Close the intake set** — one file in `source-pdfs/` maps to exactly one
    slug; intersect filename, existing `*-Bilingual.md`, and `*-Summary.md`
    before opening the PDF. A duplicate slug or dateless filename is a defect
-   correctable without extraction.
+   correctable without extraction. The slug carries the **full** title: strip
+   only the real extension, never split on an interior dot — a slug collapsed to
+   `YYYYMMDD_<n>` (e.g. `20260623_1` from `20260623_1.China …`) is a naming bug,
+   not a name.
    **闭合入库集**——`source-pdfs/` 中一个文件对应唯一 slug；开 PDF 前先求交
    文件名、已有 `*-Bilingual.md` 与 `*-Summary.md`。重复 slug 或无日期文件名
-   是无需提取即可修正的缺陷。
+   是无需提取即可修正的缺陷。slug 须承载**完整**标题：只去真实扩展名，绝不在
+   内部点号处截断——被压成 `YYYYMMDD_<n>` 的 slug（如从 `20260623_1.China …`
+   得到 `20260623_1`）是命名 bug，不是名字。
    - e.g. *One PDF, one slug `20260623_Bernstein-Memory-…`, no prior `-Bilingual.md`
      with the same stem — set closed.*
      范例：*一份 PDF、一个 slug，无同 stem 的旧 `-Bilingual.md`——集合闭合。*
@@ -85,16 +90,39 @@ domain-neutral where possible; the path names are fixed for vd-research.
    **索引收束，非综合收束**——入库止于 `scripts/index.py`；跨报告审计或滚动窗口
    是独立任务——仅在用户要求时运行，非每文件自动触发。
 
+9. **Interpretive output on agent token** — retranslation (filling EN/ZH blocks)
+   and `-Summary.md` are agent-authored against `*-Bilingual.md`, spending the
+   operator's agent token; `scripts/ingest.py` only extracts verbatim text and
+   scaffolds empty blocks — it never replaces the agent step. Free Google MT or a
+   third-party OCR plugin is not a shippable final state.
+   **解读产出用 agent token**——重译（填 EN/ZH 块）与 `-Summary.md` 由 agent 对照
+   `*-Bilingual.md` 执笔，消耗操作者 agent token；`scripts/ingest.py` 只逐字提取并
+   scaffold 空块——不替代 agent 步骤。Google 免费机翻或第三方 OCR 插件不是可交付终态。
+   - ✓ Agent reads `*-Bilingual.md`, writes the summary, fills empty EN/ZH blocks,
+     marks `translation: professional human-quality retranslation`.
+     Agent 读 `*-Bilingual.md`、写摘要、填空块，并标 `professional human-quality retranslation`。
+   - ✗ `deep_translator.GoogleTranslator` (or any free MT) as the final bilingual
+     or summary text; batch-summarizing via an external MT script.
+     以 Google 免费机翻作为双语/摘要终态；用外部 MT 脚本批量生成摘要。
+
 ---
 
-## Image / infographic variant | 图片变体
+## Image / scan variant | 图片与扫描变体
 
-When `fitz` returns no text: transcribe into page-shaped blocks → same front
-matter schema → tag `extraction: manual OCR / infographic` → lower confidence
-if numbers are unreadable. The chain order does not change — only the extract
-step is manual.
-当 `fitz` 无文本：转写为分页块 → 同一元数据 schema → 标 `manual OCR / infographic`
-→ 数字不可读则降置信度。链条顺序不变——仅提取步改为人工。
+When `fitz` returns no text (scan PDF, JPG, PNG, long screenshot): **agent vision
+transcription**, not a plugin. JPG/PNG are read directly; a scan PDF is rendered
+to one PNG per page (`fitz` `get_pixmap`, ~2× zoom) which the agent then reads.
+Transcribe into page-shaped blocks → same front matter schema → tag
+`extraction: agent vision transcription / infographic` → lower confidence if
+numbers are unreadable. Do **not** use free Google MT or third-party OCR plugins
+for shippable bilingual or summary artifacts; the render PNGs are scratch — delete
+them after transcription, never commit them under `scripts/` or the corpus dirs.
+当 `fitz` 无文本（扫描 PDF、JPG、PNG、长截图）：由 **agent 视觉转写**，而非插件。
+JPG/PNG 直接读；扫描 PDF 先逐页渲染为 PNG（`fitz` `get_pixmap`，约 2× 缩放）再由
+agent 读图。转写为分页块 → 同一元数据 schema → 标
+`extraction: agent vision transcription / infographic` → 数字不可读则降置信度。
+**不得**用 Google 免费机翻或第三方 OCR 插件作为可交付双语稿/摘要终态；渲染 PNG 是
+临时件——转写后删除，不得提交进 `scripts/` 或语料目录。
 
 ---
 
@@ -102,6 +130,8 @@ step is manual.
 
 - [ ] Is the intake set closed (one file → one slug, no duplicate)? |
       入库集是否闭合（一文件 → 一 slug、无重复）？
+- [ ] Does the slug carry the full title (not truncated at a dot to `YYYYMMDD_<n>`)? |
+      slug 是否承载完整标题（未在点号处截断为 `YYYYMMDD_<n>`）？
 - [ ] Was extract run before summary, with page markers on every body page? |
       是否在摘要前先提取，且每个正文页有页标记？
 - [ ] Does published bilingual MD carry `professional human-quality retranslation`? |
@@ -116,3 +146,5 @@ step is manual.
       每份摘要是否为一句话结论点明一条证伪条件？
 - [ ] Was cross-report synthesis deferred unless explicitly requested? |
       跨报告综合是否仅在明确要求时才运行？
+- [ ] Were summary and retranslation written by the agent (not free Google MT)? |
+      摘要与重译是否由 agent 执笔（非 Google 免费机翻）？

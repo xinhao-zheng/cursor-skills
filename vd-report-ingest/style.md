@@ -7,8 +7,11 @@ Two voices live in this file — separated by artifact type, both self-contained
 
 ## Voice A — Skill documentation (SKILL.md, logic.md, this file's meta sections) | Skill 文档
 
-The austere analytical voice. Most rules carry ✓ and ✗.
-冷峻思辨学术体。多数规则配 ✓ 与 ✗。
+The austere analytical voice — same execution rules as the sibling skills in
+this repository: zero filler, load-bearing verbs, em-dash qualification, short
+sentence stress, honesty over rhetoric. Most rules carry ✓ and ✗.
+冷峻思辨学术体——与本仓库 sibling skill 同一执行规则：零套话、承重动词、破折号限定、
+短句重音、诚实压过修辞。多数规则配 ✓ 与 ✗。
 
 ### Diction | 用词
 
