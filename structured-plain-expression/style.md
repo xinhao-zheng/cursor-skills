@@ -1,153 +1,159 @@
-# Language: Expression, Voice, Stance · 语言风格：表达、语气、姿态
+# Language: Skill Doc + Post Output · 语言风格：Skill 文档 + 帖子输出
 
-The rules of execution for structured plain expression. Most carry an example
-(✓) and a counter-example (✗).
-本文件给出"结构化白话"的落笔规则。多数规则配范例（✓）与反例（✗）。
-
----
-
-## Expression | 表达
-
-1. **A plain recap after every table.** A table never hangs alone; one line
-   lands its point — "in one line / read it as / the key".
-   **每张表后必有白话收束**。表不孤悬；一句话落点——"一句话／读法／关键"。
-   - ✓ after a comparison table: *"In one line: A for text, B for scale."*
-     在对比表后：*"一句话：文本选 A，规模选 B。"*
-   - ✗ a table followed immediately by the next heading.
-     表格后直接进下一个标题。
-
-2. **No bare jargon — say it plain, or unpack it on first use.** Prefer a plain
-   word to a term, and give the picture before the name. Where a proper term is
-   unavoidable, its first mention says in one human sentence what it is and why it
-   matters here, with the term in parentheses for later — a term the reader cannot
-   decode is a wall, not a shortcut.
-   **不甩术语——能说人话就说，非用不可就在首次出现处拆开**。能用大白话就别用术语，
-   先给画面再给名字。确需专有名词时，第一次出现先用一句人话讲清"它是什么、在这儿为何
-   重要"，原词放进括号备查——读者解不开的术语是堵墙，不是捷径。
-   - ✗ *"The service targets four-nines SLA with horizontal sharding."*
-     "该服务目标为 four-nines SLA，采用 horizontal sharding。"
-   - ✓ *"The service must stay up 99.99% of the time — about 52 minutes of
-     downtime a year (often called a four-nines SLA). To handle more load, split
-     the data across machines and route each request to the right shard."*
-     "服务必须 99.99% 的时间在线——一年大约只能宕 52 分钟（行话叫 four-nines SLA）。
-     要扛更多流量，就把数据拆到多台机器上，每条请求路由到对应分片（horizontal
-     sharding）。"
-
-3. **Plain sentence first, evidence behind it.** Lead with one human sentence
-   that lands the point; let numbers, sources, and section refs follow as support —
-   never stack terms and citations between the reader and the meaning.
-   **先一句人话，证据跟在后面**。先用一句大白话把意思砸下来；数字、出处、小节号跟在
-   后面做支撑——别把一串术语和引用堆在读者与意思之间。
-   - ✗ *"Per §3.2 (Table 4), the module exhibits p99 latency regression of 18%
-     QoQ under burst load."*
-     "据 §3.2（表 4），该模块在 burst load 下 p99 latency QoQ 回退 18%。"
-   - ✓ *"The module got noticeably slower under traffic spikes — the slowest 1%
-     of requests took 18% longer than last quarter (see §3.2, Table 4)."*
-     "模块在流量尖峰时明显变慢——最慢那 1% 的请求比上季慢了 18%（见 §3.2、表 4）。"
-
-4. **Concrete over vague.** When support is due, give a number or a shape, not
-   "significantly" or "greatly improved".
-   **具体胜于空泛**。该给支撑时，给数字或形态，而非"显著""大幅提升"。
-   - ✗ "performance improved markedly" — ✓ "error rate fell from 2.1% to 0.4%".
-     ✗ "性能大幅提升" — ✓ "错误率从 2.1% 降到 0.4%"。
-   - **Name the source in plain words, and show the breakdown — not a cryptic
-     tag.** Every external number says who said it in words a stranger can use
-     ("a third-party benchmark", "the vendor's own datasheet", "the standards
-     body") — never a "§7 / p.12" code the reader cannot look up. Every derived
-     number is unfolded into the steps and the condition that produce it; a
-     result with no visible "how" is magic, not analysis. This is the backbone of
-     the whole voice — non-negotiable.
-     **用人话点名出处，并把拆解摊开——不要甩暗号。** 每个外部数字都用陌生读者能懂的
-     话说清"谁说的"（"一份第三方基准测试""厂商自己的规格书""标准组织"），绝不用
-     "§7／第 12 页"这种读者查不了的代号。每个推导出来的数字，都把得出它的步骤和成立
-     条件摊开；没有可见"怎么来的"的结果，是魔术不是分析。这是整套风格的脊梁，不可妥协。
-     - ✗ *"About 3× faster after the migration."* — ✓ *"About 3× faster after the
-       migration — the figure from the vendor's published benchmark (single node,
-       read-heavy load)."*
-       ✗ "迁移后大约快 3 倍。" — ✓ "迁移后大约快 3 倍——这是官方基准测试报告里的数字
-       （单机、读密集负载）。"
-     - ✗ *"~$1.2M saved per year (see §7)."* — ✓ *"The $1.2M annual saving builds
-       up like this: each old machine costs $4k/yr in power, the new one $1k,
-       across 400 machines — ($4k − $1k) × 400 = $1.2M."*
-       ✗ "一年省约 120 万（见 §7）。" — ✓ "一年省约 120 万是这么来的：每台旧机年电费
-       4 千、换新后 1 千，共 400 台，(4000 − 1000) × 400 ＝ 120 万。"
+Two voices live in this file — separated by artifact type, both self-contained.
+本文件内嵌两种声音——按产出类型区分，均自洽，不依赖其他 skill 文件。
 
 ---
 
-## Voice & rhythm | 语气与节奏
+## Voice A — Skill documentation (SKILL.md, logic.md, this file) | Skill 文档
 
-5. **Dialogic self-Q&A.** Use the second person; at each turn, ask the reader's
-   own question, then answer it. Avoid the "this paper studies…" register.
-   **对话式自问自答**。用第二人称；在转折处替读者问出他的问题，再回答；不用
-   "本文研究了……"的腔调。
-   - ✓ *"It works — but why? And if there is an order, who moves first?"*
-     "它有效——但为什么？若有先后，谁先动？"
-   - ✗ *"This section first argues existence, then discusses the mechanism."*
-     "本节首先论证存在性，继而讨论机制。"
+The austere analytical voice — same execution rules as the sibling skills: zero
+filler, load-bearing verbs, em-dash qualification, a short sentence to land the
+stress, honesty over rhetoric. Most rules carry ✓ and ✗.
+冷峻思辨学术体——与 sibling skill 同一执行规则：零套话、承重动词、破折号限定、短句砸
+重音、诚实压过修辞。多数规则配 ✓ 与 ✗。
 
-6. **Let structure navigate, not emoji.** Do not sprinkle decorative or
-   "navigational" emoji (📌 📊 ⭐ ⚠️ and the like) in headings or prose — they
-   read as gaudy and AI-generated; headings, numbering, and tables do the
-   navigating.
-   **导航靠结构，不靠 emoji**。标题与正文不撒装饰性或"导航性"emoji（📌 📊 ⭐ ⚠️
-   之类）——它们显得浮夸、一眼 AI 味；导航交给标题、编号与表格。
-
-7. **A fixed status set, declared once, list/table only.** When a list or table
-   needs a status column, grade on a closed set of bare words in the document's
-   primary language — *verified · partial · pending* (English) or *已核对 ·
-   部分成立 · 待核对* (Chinese). Define the set once at the top; use plain words
-   a colleague would say aloud; never emoji, never improvise a label per row.
-   **固定状态集，表首声明，仅用于列表／表格**。列表或表格需要状态列时，用文档主语言
-   的三个白话短词定级——英文 *verified · partial · pending*，中文 *已核对 · 部分成立 ·
-   待核对*。该集合于表首一次定清；选同事真会念出口的词；不用 emoji，不逐行临时起意。
-   - ✓ at the top: *Status (this draft): verified = checked against source ·
-     partial = partly holds, still checking · pending = not yet checked or may
-     change.*
-     表首：*状态（本稿）：已核对＝来源对过了 · 部分成立＝一部分对、还在验 · 待核对＝
-     还没底或可能被推翻。*
-   - ✓ in a cell: *已核对* — ✗ in a cell: *✅* · *confirmed* · *done*.
-     单元格写 *已核对* — ✗ 单元格写 *✅* · *confirmed* · *done*。
+1. **Zero filler in skill docs.** Cut "全面 / 深入 / 值得一提". Name the step, the
+   binding, the output. | **Skill 文档零套话。** 删"全面/深入/值得一提"。写步骤、绑定、输出。
+2. **Verbs:** open, chain, unpack, source, anticipate, close — not "进行/展开/做好". |
+   **动词：** open、chain、unpack、source、anticipate、close——而非"进行/展开/做好"。
 
 ---
 
-## Stance | 姿态
+## Voice B — Research-post output | 帖子文体
 
-8. **Say it as you would to a colleague.** Plain and direct; cut jargon walls;
-   readable but not cute — no memes, no padded enthusiasm.
-   **像对同事那样讲**。平实、直接；拆掉术语墙；好读但不卖萌——无梗、无注水的热情。
+The post is **austere in logic, plain in language, told as one chain** — it takes
+the austere-analytical-prose skeleton (one narrow falsifiable claim → causal
+advance → honest limit → aphoristic coda) and keeps its discipline, but every
+sentence is one a colleague would say. It is **not** a report (no number-walls, no
+untranslated jargon) and **not** a ramble (it has a spine, sourced numbers, a
+falsifiable claim). Rules embedded here; **never cite a skill by name in the post.**
+帖子是**逻辑冷峻、语言白话、以一条链讲出**——取冷峻思辨学术体的骨架（一条收窄可证伪的
+主张 → 因果推进 → 诚实局限 → 格言收束）并守其纪律，但每句都是同事会说的话。它**不是**
+报告（无数字墙、无生术语），也**不是**随笔（有脊柱、有带出处的数字、有可证伪的主张）。
+规则内嵌于此；**帖子中绝不点名任何 skill。**
 
-9. **End each unit on one carried-away line — and let it bite.** Every section
-   closes on a single takeaway; for a claim, shape it as a sharp, often
-   contrastive line (the austere-analytical-prose coda), not a flat restatement.
-   **每个单元以一句可被带走、且有锋芒的话收束**。每节都以一句要点结尾；若是结论，
-   就打磨成一句锋利、常带对照的话（冷峻思辨学术体的收法），而非平铺复述。
-   - ✓ *"The method scales; the judgment does not."* — ✗ *"In summary, this
-     section made three points."*
-     ✓ "方法可以扩展，判断不能。" — ✗ "综上，本节讲了三点。"
+Register check — the target sits between two failures · 调性标尺（落在两种失败之间）:
+- ✗ report dump · 报告堆砌 — *"OOS IC=0.66，分位 100%，峰后 −0.53……"*（数字墙、无机制无出处）
+- ✗ loose ramble · 松散随笔 — *"最近 IC 很高，应该是抱团了吧。"*（无脊柱、无数字、无可证伪）
+- ✓ right · 对 — *"一个平时没用的指标突然变准——这不是因子复活，是资金把格局焊死了。"*（白话先行、机制、可证伪）
+
+### Lead plain, evidence behind | 白话先行，证据跟后
+
+1. **Land the point in one human sentence first; let numbers and sources follow.**
+   Never stack terms and citations between the reader and the meaning.
+   **先用一句人话砸下要点；数字、出处跟在后面。** 别把术语和引用堆在读者与意思之间。
+   - ✓ *"它平时没用——`F=60,H=20` 九年均值才 −0.027，时正时负。"*
+   - ✗ *"据 §1（表 2），F=60,H=20 之 IS mean IC 为 −0.027，标准差……"*
+
+### Each unit closes bolded | 每节加粗收束
+
+2. **Every section/figure ends on one carried-away line, bolded.** Use a fixed
+   handle — "一句话：**…**" or "洞见铺垫：**…**".
+   **每节／每图以一句可带走的话加粗收尾。** 用固定句柄——"一句话：**……**"或
+   "洞见铺垫：**……**"。
+   - ✓ *"一句话：**它量的是拥挤，不是余温。**"* — ✗ 一节讲完直接进下一个标题。
+
+### Recap under every table | 表后必有白话收束
+
+3. **A table never hangs alone; one line lands its point right under it.**
+   **表不孤悬；表格正下方一句话落点。**
+   - ✓ after a table: *"三件事一目了然：分位都在 87%~100%、峰后 IC 普遍翻负、头部回撤
+     15%~22%。"* — ✗ a table followed immediately by the next heading.
+
+### Term unpacked, analogy to clarify | 术语拆开、比喻澄清
+
+4. **A term's first mention is one plain sentence, the word in parentheses; for the
+   counter-intuitive, give a picture.** A term the reader can't decode is a wall.
+   **术语首次出现是一句人话，原词入括号；反直觉处给一个画面。** 解不开的术语是堵墙。
+   - ✓ *"IC（信息系数，说白了就是"过去强的概念未来是不是还排在前面"）……"*
+   - ✓ analogy · 比喻：*"IC 看的是全市场一张"相对位置图"——平时天天洗牌，抱团时被冻住。"*
+
+### Number with source, caliber clear | 数字带出处、口径分明
+
+5. **Every external number names who said it in plain words; every derived number
+   unfolds its arithmetic; when two calibers coexist, distinguish them once.**
+   **每个外部数字用人话点名"谁说的"；每个推导数字摊开算式；两种口径并存时一次讲清。**
+   - ✓ *"据 South China Morning Post，宁德时代 2021/12/2 见顶后，到 2022/1 初回撤 18%。"*
+   - ✓ caliber · 口径：*"「平时(IS)」是九年均值，「最近(OOS)」只看 5 月后——两个口径，
+     差距本身就是信号。"*
+   - ✗ *"听说跌了不少"* / *"（见图 3）"* — 无人话出处、不可查。
+
+### Dialogic, anticipate the objection | 对话感、预判反对
+
+6. **Use the second person; at each turn ask the reader's own question, then answer.
+   After a claim, raise the rebuttal yourself — and above all, meet the reader's
+   *strongest gut objection* (their trading instinct, their common sense) head-on,
+   refute it with a causal chain, never sidestep it.**
+   **用第二人称；在转折处替读者问出他的问题，再回答。抛出结论后，自己提反驳——尤其要
+   正面迎上读者*最强的本能反驳*（他的交易直觉、他的常识），用因果链驳倒，绝不绕开。**
+   - ✓ soft turns · 轻转折：*"那冲高之后呢？看下一张。"* / *"也有人会问：为什么不用
+     成交额集中度？——那是互补的另一侧……"*
+   - ✓ strongest gut objection · 最强本能反驳：*"动量不是会延续吗？启动了追上去不就行？
+     ——错在它标志的是拥挤晚期、不是启动：你看见它，已是后半场。"*（正面用因果驳倒，而非回避）
+
+### Mark the limit honestly | 诚实标界
+
+7. **Say plainly what you did not do; never dress a推断 as proof.**
+   **把没做到的直说；绝不把推断装成证明。**
+   - ✓ *"要诚实说，这次只做到"IC 暴涨 → 推断抱团 → 历史吻合"，还没用独立指标在同一时刻
+     交叉验证——那是下一步。"*
+
+### Mark where figures go | 标清插图位置
+
+8. **Mark each figure's slot, then embed it; read it in the body as `FigN`, but keep
+   headings free of figure codes.**
+   **标清每张图的位置，再嵌入；正文用 `FigN` 引用，标题不带图号。**
+   - ✓ *"插图位置：这里插入 Fig4。"* 然后 `![Fig4 …](outputs/…/Fig4_….png)`，正文"Fig4
+     左图很清楚……"；小节标题写"历史见过，冲顶后翻负"，**不**写"Fig3 和 Fig4：……"。
+
+### Headings short, structure navigates | 标题精简、结构导航
+
+9. **Short, progressively numbered headings that say the thing, not the engineering
+   code; let headings/numbering/tables navigate, not emoji.**
+   **标题简短、连续编号、只说事不说工程口径；导航靠标题／编号／表格，不靠 emoji。**
+   - ✓ *"## 3. 历史极点之后：四次抱团顶"* — ✗ *"## 3. Fig-OOS-3 复盘（OOS 口径）"*
+
+### Close + ring back | 收束 + 呼应
+
+10. **One aphoristic, contrastive coda that echoes the opening or the prior piece —
+    not a recap. No emoji, no clickbait title, 非投资建议.**
+    **一句格言式对照收尾，呼应开篇或前作——不复述。无 emoji、无标题党、非投资建议。**
+    - ✓ *"注意力温和扩散，它在短端给你动量；挤兑式集中，它在长端给你顶部的警报——同一个
+      IC，一个用来进攻，一个用来避险。"* — ✗ *"综上所述，本文得出以下结论。"*
+
+### Length | 篇幅
+
+11. **Length follows depth, not fact-count — develop one finding, never list more.**
+    A single-result post ~2000–3500 字; a multi-figure study ~3500–5000 字. A wider
+    scope means the one finding is dug deeper with more mechanism and more named
+    objections woven in, not a longer enumeration.
+    **篇幅随深度，不随事实数——把一个发现写深，而非罗列更多。** 单结果帖约 2000–3500 字；
+    多图研究约 3500–5000 字。范围更宽＝同一发现挖得更深、收进更多机制与被点名的反驳，
+    而非清单更长。
 
 ---
 
-## One-pass clean | 一键清洗流程（润色旧文时）
+## One-pass clean | 一键清洗流程（润色草稿时）
 
-1. Hoist a 30-second overview to the first screen. | 把"30 秒概览"提到第一屏。
-2. Turn every parallel / contrast / mapping prose block into a table. |
-   把每段并列／对比／映射的散文改成表格。
-3. Add a one-line recap under every table. | 给每张表补一句白话收束。
-4. Replace every term with plain words; for one that must stay, unpack it in a
-   human sentence on first use, with the term in parentheses. |
-   把每个术语换成人话；非留不可的，第一次出现用一句人话拆开，原词入括号。
-5. Strip decorative / navigational emoji (📌 📊 ⭐ ⚠️); replace status emoji
-   (✅ 🟡 🔴) with the fixed plain-word set (verified · partial · pending /
-   已核对 · 部分成立 · 待核对) in lists and tables only. |
-   删掉装饰／导航 emoji（📌 📊 ⭐ ⚠️）；把状态 emoji（✅ 🟡 🔴）换成固定白话词集
-   （verified · partial · pending／已核对 · 部分成立 · 待核对），且只用于列表与表格。
-6. Replace "see above / as mentioned" with specific section or file numbers. |
-   把"见上文／如前所述"换成具体小节或文件号。
-7. Tag every external number with its source, and add a one-line arithmetic
-   under every derived number. | 给每个外部数字补出处，给每个推导数字补一句算式。
-8. Give long-doc headings a short title and progressive numbering (1 / 1.1 / 1.2). |
-   给长文标题配简短标题与连续编号（1 / 1.1 / 1.2）。
-9. Reread: does any section bury its point below the first screen, hang a table
-   with no recap, or close flat instead of on a line? Fix it. |
-   通读：是否还有小节把要点埋在第一屏之下、让表格无收束、或收尾平铺而非落在一句
-   话上？改之。
+1. Hoist a falsifiable finding into the title and a 30-second lookup into the first
+   screen. | 把可证伪的结论提到标题、把 30 秒速查提到第一屏。
+2. For each figure, ensure the four beats (how to read → what it shows → link →
+   bolded takeaway); delete description that carries no reading. | 每张图补四拍
+   （怎么看 → 看出什么 → 联系 → 加粗收束）；删不带"读法"的描述。
+3. Lead each point with one plain sentence; push numbers/sources behind it. | 每个
+   要点先一句人话；数字／出处挪到后面。
+4. Add a one-line recap under every table; unpack every term on first use with the
+   word in parentheses. | 每张表补一句白话收束；每个术语首次出现拆开、原词入括号。
+5. Attach a plain-word source to every external number; unfold the arithmetic of
+   every derived number; reconcile coexisting calibers once. | 每个外部数字补人话
+   出处；每个推导数字摊开算式；并存口径一次对清。
+6. For each surprising claim, add its mechanism (A → B → C); for "why X not Y",
+   answer head-on. | 每个意外结论补机制链；"为什么是 X 不是 Y"正面回答。
+7. After each persuasive claim, add a rebuttal-and-answer; state the limit honestly
+   ("还没……，那是下一步"). | 每个说服性结论后补反驳与回答；诚实标边界。
+8. Strip figure codes from headings (keep `FigN` only in the body); strip emoji and
+   clickbait; confirm 非投资建议. | 标题去图号（图号只留正文）；去 emoji 与标题党；
+   确认*非投资建议*。
+9. End on one contrastive aphorism that rings back to the opening; cut any flat
+   "综上". | 以一句呼应开篇的对照格言收尾；删掉平铺的"综上"。
